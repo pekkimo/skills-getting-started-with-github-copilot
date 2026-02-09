@@ -13,19 +13,58 @@ document.addEventListener("DOMContentLoaded", () => {
       // Clear loading message
       activitiesList.innerHTML = "";
 
+      const activityTemplate = document.getElementById("activity-card-template");
+
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
-        const activityCard = document.createElement("div");
-        activityCard.className = "activity-card";
-
         const spotsLeft = details.max_participants - details.participants.length;
+        const activityCard = activityTemplate
+          ? activityTemplate.content.firstElementChild.cloneNode(true)
+          : document.createElement("div");
 
-        activityCard.innerHTML = `
-          <h4>${name}</h4>
-          <p>${details.description}</p>
-          <p><strong>Schedule:</strong> ${details.schedule}</p>
-          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
-        `;
+        if (!activityTemplate) {
+          activityCard.className = "activity-card";
+        }
+
+        const title = activityCard.querySelector(".activity-title") || activityCard.querySelector("h4");
+        const description = activityCard.querySelector(".activity-description") || activityCard.querySelector("p");
+        const schedule = activityCard.querySelector(".activity-schedule");
+        const participantsList = activityCard.querySelector(".participants-list");
+
+        if (title) {
+          title.textContent = name;
+        }
+
+        if (description) {
+          description.textContent = details.description;
+        }
+
+        if (schedule) {
+          schedule.textContent = `Schedule: ${details.schedule}`;
+        } else {
+          const scheduleText = document.createElement("p");
+          scheduleText.textContent = `Schedule: ${details.schedule}`;
+          activityCard.appendChild(scheduleText);
+        }
+
+        const availabilityText = document.createElement("p");
+        availabilityText.innerHTML = `<strong>Availability:</strong> ${spotsLeft} spots left`;
+        activityCard.appendChild(availabilityText);
+
+        if (participantsList) {
+          participantsList.innerHTML = "";
+          if (details.participants.length === 0) {
+            const emptyItem = document.createElement("li");
+            emptyItem.textContent = "No participants yet";
+            participantsList.appendChild(emptyItem);
+          } else {
+            details.participants.forEach((participant) => {
+              const item = document.createElement("li");
+              item.textContent = participant;
+              participantsList.appendChild(item);
+            });
+          }
+        }
 
         activitiesList.appendChild(activityCard);
 
