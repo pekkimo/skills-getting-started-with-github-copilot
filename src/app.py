@@ -85,16 +85,7 @@ def root():
 
 @app.get("/activities")
 def get_activities():
-    normalized = {}
-    for name, data in activities.items():
-        participants = sorted(data["participants"])
-        normalized[name] = {
-            **data,
-            "participants": participants,
-            "participants_count": len(participants),
-            "spots_remaining": max(data["max_participants"] - len(participants), 0)
-        }
-    return normalized
+    return activities
 
 
 @app.post("/activities/{activity_name}/signup")

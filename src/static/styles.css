@@ -143,13 +143,16 @@ footer {
   color: #666;
 }
 
-.activity-participants {
+/* Participants section styling */
+.participants-section {
   margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px dashed #e0e0e0;
+  padding: 10px 12px;
+  background-color: #eef3ff;
+  border: 1px solid #d9e2ff;
+  border-radius: 6px;
 }
 
-.activity-participants h5 {
+.participants-section h5 {
   margin-bottom: 8px;
   font-size: 0.95rem;
   color: #1a237e;
@@ -157,21 +160,10 @@ footer {
 
 .participants-list {
   list-style: disc;
-  list-style-position: inside;
-  margin: 0;
-  padding: 0;
+  padding-left: 20px;
+  color: #333;
 }
 
 .participants-list li {
-  margin-bottom: 6px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  background-color: #eef2ff;
-  border: 1px solid #dbe3ff;
-  color: #3949ab;
-}
-
-.participants-empty {
-  color: #607d8b;
-  font-style: italic;
+  margin-bottom: 4px;
 }
